@@ -18,7 +18,7 @@ class PlayerBar extends Component {
                             }
                         />
                     </button>
-                    <button id="next">
+                    <button id="next" onClick={this.props.handleNextClick}>
                         <span className="ion-skip-forward" />
                     </button>
                 </section>

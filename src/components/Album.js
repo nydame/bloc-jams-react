@@ -31,7 +31,11 @@ class Album extends Component {
         this.audioElement.src = song.audioSrc;
         this.setState({ currentSong: song });
     }
-
+    getCurrentIndex() {
+        return this.state.album.songs.findIndex(
+            song => this.state.currentSong === song
+        );
+    }
     handleSongClick(song) {
         const isSameSong = this.state.currentSong === song;
         if (this.state.isPlaying && isSameSong) {
@@ -44,10 +48,18 @@ class Album extends Component {
         }
     }
     handlePrevClick() {
-        const currentIndex = this.state.album.songs.findIndex(
-            song => this.state.currentSong === song
-        );
+        const currentIndex = this.getCurrentIndex();
         const newIndex = Math.max(0, currentIndex - 1);
+        const newSong = this.state.album.songs[newIndex];
+        this.setSong(newSong);
+        this.play();
+    }
+    handleNextClick() {
+        const currentIndex = this.getCurrentIndex();
+        const newIndex = Math.min(
+            this.state.album.songs.length - 1,
+            currentIndex + 1
+        );
         const newSong = this.state.album.songs[newIndex];
         this.setSong(newSong);
         this.play();
@@ -105,6 +117,7 @@ class Album extends Component {
                         this.handleSongClick(this.state.currentSong)
                     }
                     handlePrevClick={() => this.handlePrevClick()}
+                    handleNextClick={() => this.handleNextClick()}
                 />
             </section>
         );
