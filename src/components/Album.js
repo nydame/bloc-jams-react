@@ -12,11 +12,14 @@ class Album extends Component {
             album: album,
             currentSong: album.songs[0],
             currentSongTime: 0,
-            currentSongDuration: album.songs[0].duration,
+            currentSongDuration: album.songs[0]['duration'],
             isPlaying: false,
         };
         this.audioElement = document.createElement('audio');
         this.audioElement.src = album.songs[0].audioSrc;
+        this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
+        this.handleDurationChange = this.handleDurationChange.bind(this);
+        this.handleTimeInput = this.handleTimeInput.bind(this);
     }
     // UTILITY FNS & EVENT HANDLERS
     play() {
@@ -27,19 +30,6 @@ class Album extends Component {
     pause() {
         this.audioElement.pause();
         this.setState({ isPlaying: false });
-    }
-
-    componentDidMount() {
-        this.audioElement.addEventListener('timeupdate', ev => {
-            this.setState({
-                currentSongTime: this.audioElement.currentSongTime,
-            });
-        });
-        this.audioElement.addEventListener('durationchange', ev => {
-            this.setState({
-                currentSongDuration: this.audioElement.currentSongDuration,
-            });
-        });
     }
 
     setSong(song) {
@@ -78,6 +68,37 @@ class Album extends Component {
         const newSong = this.state.album.songs[newIndex];
         this.setSong(newSong);
         this.play();
+    }
+    handleTimeUpdate(ev) {
+        this.setState({ currentSongTime: this.audioElement.currentTime });
+    }
+    handleDurationChange(ev) {
+        this.setState({ currentSongDuration: this.audioElement.duration });
+    }
+    handleTimeInput(ev) {
+        const newTime = this.audioElement.duration * ev.target.value;
+        this.audioElement.currentTime = newTime;
+        this.handleTimeUpdate(ev);
+    }
+
+    componentDidMount() {
+        this.audioElement.addEventListener('timeupdate', this.handleTimeUpdate);
+        this.audioElement.addEventListener(
+            'durationchange',
+            this.handleDurationChange
+        );
+    }
+    componentWillUnmount() {
+        this.audioElement.src = null;
+        this.audioElement.removeEventListener(
+            'timeupdate',
+            this.handleTimeUpdate
+        );
+        this.audioElement.addEventListener(
+            'durationchange',
+            this.handleDurationChange
+        );
+        this.audioElement = null;
     }
     // END UTILIY FNS & EVENT HANDLERS
     render() {
@@ -135,6 +156,7 @@ class Album extends Component {
                     }
                     handlePrevClick={() => this.handlePrevClick()}
                     handleNextClick={() => this.handleNextClick()}
+                    handleTimeInput={ev => this.handleTimeInput(ev)}
                 />
             </section>
         );
