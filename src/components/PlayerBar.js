@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 
 class PlayerBar extends Component {
+    constructor(props) {
+        super(props);
+        this.formatTime = this.formatTime.bind(this);
+    }
+
+    formatTime(timeInSeconds) {
+        const timeString = isNaN(timeInSeconds)
+            ? '--:--'
+            : parseInt(timeInSeconds / 60, 10) +
+              ':' +
+              parseInt(timeInSeconds % 60, 10);
+        return timeString;
+    }
+
     render() {
         return (
             <section className="player-bar">
@@ -24,7 +38,7 @@ class PlayerBar extends Component {
                 </section>
                 <section id="time-control">
                     <div className="current-time">
-                        {this.props.currentSongTime}
+                        {this.formatTime(this.props.currentSongTime)}
                     </div>
                     <input
                         type="range"
@@ -39,7 +53,7 @@ class PlayerBar extends Component {
                         onChange={this.props.handleTimeInput}
                     />
                     <div className="total-time">
-                        {this.props.currentSongDuration}
+                        {this.formatTime(this.props.currentSongDuration)}
                     </div>
                 </section>
                 <section id="volume-control" />
