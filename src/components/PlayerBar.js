@@ -11,7 +11,7 @@ class PlayerBar extends Component {
             ? '--:--'
             : parseInt(timeInSeconds / 60, 10) +
               ':' +
-              parseInt(timeInSeconds % 60, 10);
+              Math.round(timeInSeconds % 60, 10);
         return timeString;
     }
 

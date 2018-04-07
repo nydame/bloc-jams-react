@@ -14,7 +14,7 @@ export default [
             {
                 title: 'Green',
                 duration: '103.96',
-                audioSrc: '/assets/music/gren.mp3',
+                audioSrc: '/assets/music/green.mp3',
             },
             {
                 title: 'Red',

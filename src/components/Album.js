@@ -26,7 +26,12 @@ class Album extends Component {
     }
     // UTILITY FNS & EVENT HANDLERS
     play() {
-        this.audioElement.play();
+        let chromePlayPromise = this.audioElement.play();
+        if (chromePlayPromise !== undefined) {
+            chromePlayPromise.then(function() {}).catch(function(err) {
+                console.log(err);
+            });
+        }
         this.setState({ isPlaying: true });
     }
 
