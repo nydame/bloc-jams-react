@@ -1,0 +1,21 @@
+.song-number button {
+    position: relative;
+}
+.song-number .material-icons {
+    left: 16px;
+    left: calc(16px + 0.2rem);
+    opacity: 0;
+    position: absolute;
+    top: 0.25rem;
+    z-index: 30;
+}
+.song-number button:hover .song-play,
+.current-song .song-pause,
+.current-song .song-number button:hover .song-pause {
+    opacity: 1;
+}
+.current-song .song-number button:hover .song-play,
+.song-number button:hover .song-number-showing,
+.current-song .song-number-showing {
+    opacity: 0;
+}

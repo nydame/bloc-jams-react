@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import albumData from './../data/albums';
 import PlayerBar from './PlayerBar';
+import './../styles/Album.css';
 
 class Album extends Component {
     constructor(props) {
@@ -23,6 +24,7 @@ class Album extends Component {
         this.handleTimeInput = this.handleTimeInput.bind(this);
         this.handleVolumeUpdate = this.handleVolumeUpdate.bind(this);
         this.handleVolumeInput = this.handleVolumeInput.bind(this);
+        this.formatTime = this.formatTime.bind(this);
     }
     // UTILITY FNS & EVENT HANDLERS
     play() {
@@ -48,6 +50,14 @@ class Album extends Component {
         return this.state.album.songs.findIndex(
             song => this.state.currentSong === song
         );
+    }
+    formatTime(timeInSeconds) {
+        const timeString = isNaN(timeInSeconds)
+            ? '--:--'
+            : parseInt(timeInSeconds / 60, 10) +
+              ':' +
+              Math.round(timeInSeconds % 60, 10);
+        return timeString;
     }
     handleSongClick(song) {
         const isSameSong = this.state.currentSong === song;
@@ -159,11 +169,30 @@ class Album extends Component {
                             <tr
                                 key={index}
                                 onClick={() => this.handleSongClick(song)}
+                                className={
+                                    this.state.currentSong ===
+                                        this.state.album.songs[index] &&
+                                    this.state.isPlaying
+                                        ? 'current-song'
+                                        : ''
+                                }
                             >
-                                <td className="song-number">{index + 1} </td>
+                                <td className="song-number">
+                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                        <i class="material-icons song-play">
+                                            play_circle_outline
+                                        </i>
+                                        <span class="song-number-showing">
+                                            {index + 1}
+                                        </span>
+                                        <i class="material-icons song-pause">
+                                            pause
+                                        </i>
+                                    </button>
+                                </td>
                                 <td className="song-title">{song.title}</td>
                                 <td className="song-duration">
-                                    {song.duration}
+                                    {this.formatTime(song.duration)}
                                 </td>
                             </tr>
                         ))}
@@ -182,6 +211,7 @@ class Album extends Component {
                     handleNextClick={() => this.handleNextClick()}
                     handleTimeInput={ev => this.handleTimeInput(ev)}
                     handleVolumeInput={ev => this.handleVolumeInput(ev)}
+                    formatTime={t => this.formatTime(t)}
                 />
             </section>
         );
