@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 import Landing from './components/Landing';
 import Library from './components/Library';
 import Album from './components/Album';
@@ -12,8 +12,12 @@ class App extends Component {
                 <header>
                     <h1>Bloc Jams</h1>
                     <nav>
-                        <Link to="/">Home</Link>
-                        <Link to="/library">Library</Link>
+                        <NavLink to="/" exact>
+                            Home
+                        </NavLink>
+                        <NavLink to="/library" exact>
+                            Library
+                        </NavLink>
                     </nav>
                 </header>
                 <main>
