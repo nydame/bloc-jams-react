@@ -56,7 +56,11 @@ class Album extends Component {
             ? '--:--'
             : parseInt(timeInSeconds / 60, 10) +
               ':' +
-              Math.round(timeInSeconds % 60, 10);
+              Math.round(timeInSeconds % 60);
+        const minSecsArr = timeString.split(':');
+        if (minSecsArr[1] < 10 && minSecsArr.length === 2) {
+            return minSecsArr[0] + ':0' + minSecsArr[1];
+        }
         return timeString;
     }
     handleSongClick(song) {
