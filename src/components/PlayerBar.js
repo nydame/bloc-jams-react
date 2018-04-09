@@ -9,21 +9,23 @@ class PlayerBar extends Component {
         return (
             <section className="player-bar">
                 <section id="buttons">
-                    <button id="previous" onClick={this.props.handlePrevClick}>
-                        <span className="ion-skip-backward" />
+                    <button
+                        className="mdl-button mdl-button--accent mdl-js-button mdl-button--fab mdl-button--mini-fab"
+                        onClick={this.props.handlePrevClick}
+                    >
+                        <i className="material-icons">fast_rewind</i>
                     </button>
                     <button
-                        id="play-pause"
+                        className="mdl-button mdl-button--accent mdl-js-button mdl-button--fab mdl-button--mini-fab"
                         onClick={this.props.handleSongClick}
                     >
-                        <span
-                            className={
-                                this.props.isPlaying ? 'ion-pause' : 'ion-play'
-                            }
-                        />
+                        <i className="material-icons">play_arrow</i>
                     </button>
-                    <button id="next" onClick={this.props.handleNextClick}>
-                        <span className="ion-skip-forward" />
+                    <button
+                        className="mdl-button mdl-button--accent mdl-js-button mdl-button--fab mdl-button--mini-fab"
+                        onClick={this.props.handleNextClick}
+                    >
+                        <i className="material-icons">fast_forward</i>
                     </button>
                 </section>
                 <section id="time-control">
@@ -32,7 +34,7 @@ class PlayerBar extends Component {
                     </div>
                     <input
                         type="range"
-                        className="seek-bar"
+                        className="seek-bar mdl-slider"
                         value={
                             this.props.currentSongTime /
                                 this.props.currentSongDuration || 0
@@ -47,14 +49,14 @@ class PlayerBar extends Component {
                     </div>
                 </section>
                 <section id="volume-control" />
-                <div className="icon ion-volume-low" />
+                <i className="material-icons">volume_down</i>
                 <input
                     type="range"
-                    className="seek-bar"
+                    className="seek-bar mdl-slider"
                     value={this.props.currentSongVolume * 100}
                     onChange={this.props.handleVolumeInput}
                 />
-                <div className="icon ion-volume-high" />
+                <i className="material-icons">volume_up</i>
             </section>
         );
     }

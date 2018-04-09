@@ -1,3 +1,4 @@
+/* Song List*/
 .song-number button {
     position: relative;
 }
@@ -21,4 +22,18 @@
 .current-song-paused .song-pause,
 .current-song-paused .song-number-showing {
     opacity: 0;
+}
+
+/* Player Bar */
+#buttons,
+#time-control,
+#volume-control {
+    margin-bottom: 2em;
+}
+#buttons button {
+    margin: 0 0.5em;
+}
+.player-bar input[type="range"] {
+    background: hsla(260,100%,63%,0.1);
+    color: #fff;
 }
