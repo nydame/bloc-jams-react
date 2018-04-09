@@ -60,6 +60,8 @@
         background-color:#282828;
         background-size:16px 16px;
         /* Credit for background pattern: Atle Mo and Lea Verou, CSS3 Pattern Library */
+
+        position: relative;
         transform: opacity 0.5s ease-in;
     }
     h1, h2 {
@@ -82,11 +84,11 @@
         border-bottom-style: solid;
     }
     nav {
-        margin: 1em 0;
+        margin: 1rem 0;
     }
     nav a {
         display: inline-block;
-        margin: 0 1em;
+        margin: 0 1rem;
         padding: 0;
     }
     nav a.active {
@@ -96,26 +98,20 @@
     nav a.active:hover {
         border-bottom-style: dotted;
     }
-    .library a {
-        background: hsla(260,100%,63%,0);
-        border: none;
-        display: block;
-        outline: none;
-        padding: 2.5em;
+    header h1 a,
+    header h1 a:hover {
+        border-bottom: none;
     }
-    .library a:hover {
-        background: hsla(260,100%,63%,0.1);
+    main {
+        padding-bottom: 4rem;
     }
-    .library a div,
-    .library a img {
-        padding: 0.5em 0;
-    }
-    .library a img {
-        border-radius: 50%;
-        width: 150px;
-    }
-    #album-info img {
-        max-width: 100%;
+    footer {
+        background: #000;
+        bottom: 0;
+        padding: 1rem;
+        position: absolute;
+        text-align: center;
+        width: 100%;
     }
     </style>
     <title>React App</title>

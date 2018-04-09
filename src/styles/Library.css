@@ -1,0 +1,21 @@
+.library a {
+    background: hsla(260,100%,63%,0);
+    border: none;
+    display: block;
+    outline: none;
+    padding: 2.5em;
+}
+.library a:hover {
+    background: hsla(260,100%,63%,0.1);
+}
+.library a div,
+.library a img {
+    padding: 0.5em 0;
+}
+.library a img {
+    border-radius: 50%;
+    width: 150px;
+}
+#album-info img {
+    max-width: 100%;
+}

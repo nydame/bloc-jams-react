@@ -10,7 +10,11 @@ class App extends Component {
         return (
             <div className="App">
                 <header>
-                    <h1>Bloc Jams</h1>
+                    <h1>
+                        <NavLink to="/" exact>
+                            <img src="/assets/images/bloc_jams_logo.png" />
+                        </NavLink>
+                    </h1>
                     <nav>
                         <NavLink to="/" exact>
                             Home
