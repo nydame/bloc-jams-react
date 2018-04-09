@@ -16,6 +16,7 @@ class Album extends Component {
             currentSongDuration: album.songs[0]['duration'],
             currentSongVolume: 0.8,
             isPlaying: false,
+            isPaused: false,
         };
         this.audioElement = document.createElement('audio');
         this.audioElement.src = album.songs[0].audioSrc;
@@ -25,6 +26,7 @@ class Album extends Component {
         this.handleVolumeUpdate = this.handleVolumeUpdate.bind(this);
         this.handleVolumeInput = this.handleVolumeInput.bind(this);
         this.formatTime = this.formatTime.bind(this);
+        this.getSongClassName = this.getSongClassName.bind(this);
     }
     // UTILITY FNS & EVENT HANDLERS
     play() {
@@ -34,12 +36,12 @@ class Album extends Component {
                 console.log(err);
             });
         }
-        this.setState({ isPlaying: true });
+        this.setState({ isPlaying: true, isPaused: false });
     }
 
     pause() {
         this.audioElement.pause();
-        this.setState({ isPlaying: false });
+        this.setState({ isPlaying: false, isPaused: true });
     }
 
     setSong(song) {
@@ -62,6 +64,17 @@ class Album extends Component {
             return minSecsArr[0] + ':0' + minSecsArr[1];
         }
         return timeString;
+    }
+    getSongClassName(song) {
+        if (this.state.currentSong === song) {
+            if (this.state.isPlaying) {
+                return 'current-song';
+            }
+            if (this.state.isPaused) {
+                return 'current-song-paused';
+            }
+        }
+        return '';
     }
     handleSongClick(song) {
         const isSameSong = this.state.currentSong === song;
@@ -173,23 +186,17 @@ class Album extends Component {
                             <tr
                                 key={index}
                                 onClick={() => this.handleSongClick(song)}
-                                className={
-                                    this.state.currentSong ===
-                                        this.state.album.songs[index] &&
-                                    this.state.isPlaying
-                                        ? 'current-song'
-                                        : ''
-                                }
+                                className={this.getSongClassName(song)}
                             >
                                 <td className="song-number">
-                                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                                        <i class="material-icons song-play">
+                                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                        <i className="material-icons song-play">
                                             play_circle_outline
                                         </i>
-                                        <span class="song-number-showing">
+                                        <span className="song-number-showing">
                                             {index + 1}
                                         </span>
-                                        <i class="material-icons song-pause">
+                                        <i className="material-icons song-pause">
                                             pause
                                         </i>
                                     </button>

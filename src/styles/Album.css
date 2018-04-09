@@ -11,11 +11,14 @@
 }
 .song-number button:hover .song-play,
 .current-song .song-pause,
-.current-song .song-number button:hover .song-pause {
+.current-song .song-number button:hover .song-pause,
+.current-song-paused .song-play {
     opacity: 1;
 }
 .current-song .song-number button:hover .song-play,
 .song-number button:hover .song-number-showing,
-.current-song .song-number-showing {
+.current-song .song-number-showing,
+.current-song-paused .song-pause,
+.current-song-paused .song-number-showing {
     opacity: 0;
 }
