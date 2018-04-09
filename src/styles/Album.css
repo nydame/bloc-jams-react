@@ -29,9 +29,14 @@
 #time-control,
 #volume-control {
     margin-bottom: 2em;
+    padding: 0 2em;
 }
 #buttons button {
     margin: 0 0.5em;
+}
+#time-control,
+#volume-control {
+    display: flex;
 }
 .player-bar input[type="range"] {
     background: hsla(260,100%,63%,0.1);

@@ -48,15 +48,16 @@ class PlayerBar extends Component {
                         {this.props.formatTime(this.props.currentSongDuration)}
                     </div>
                 </section>
-                <section id="volume-control" />
-                <i className="material-icons">volume_down</i>
-                <input
-                    type="range"
-                    className="seek-bar mdl-slider"
-                    value={this.props.currentSongVolume * 100}
-                    onChange={this.props.handleVolumeInput}
-                />
-                <i className="material-icons">volume_up</i>
+                <section id="volume-control">
+                    <i className="material-icons">volume_down</i>
+                    <input
+                        type="range"
+                        className="seek-bar mdl-slider"
+                        value={this.props.currentSongVolume * 100}
+                        onChange={this.props.handleVolumeInput}
+                    />
+                    <i className="material-icons">volume_up</i>
+                </section>
             </section>
         );
     }
