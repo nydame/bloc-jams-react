@@ -58,6 +58,10 @@
 #buttons button {
     margin: 0 0.5em;
 }
+#buttons.paused .pause,
+#buttons.playing .play {
+    display: none;
+}
 #time-control,
 #volume-control {
     display: flex;

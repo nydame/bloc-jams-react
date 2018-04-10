@@ -8,7 +8,10 @@ class PlayerBar extends Component {
     render() {
         return (
             <section className="player-bar">
-                <section id="buttons">
+                <section
+                    id="buttons"
+                    className={this.props.isPlaying ? 'playing' : 'paused'}
+                >
                     <button
                         className="mdl-button mdl-button--accent mdl-js-button mdl-button--fab mdl-button--mini-fab"
                         onClick={this.props.handlePrevClick}
@@ -19,7 +22,8 @@ class PlayerBar extends Component {
                         className="mdl-button mdl-button--accent mdl-js-button mdl-button--fab mdl-button--mini-fab"
                         onClick={this.props.handleSongClick}
                     >
-                        <i className="material-icons">play_arrow</i>
+                        <i className="material-icons play">play_arrow</i>
+                        <i className="material-icons pause">pause</i>
                     </button>
                     <button
                         className="mdl-button mdl-button--accent mdl-js-button mdl-button--fab mdl-button--mini-fab"
