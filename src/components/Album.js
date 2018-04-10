@@ -66,15 +66,16 @@ class Album extends Component {
         return timeString;
     }
     getSongClassName(song) {
+        const basicSongClass = 'song-list-item';
         if (this.state.currentSong === song) {
             if (this.state.isPlaying) {
-                return 'current-song';
+                return `${basicSongClass} current-song`;
             }
             if (this.state.isPaused) {
-                return 'current-song-paused';
+                return `${basicSongClass} current-song-paused`;
             }
         }
-        return '';
+        return `${basicSongClass}`;
     }
     handleSongClick(song) {
         const isSameSong = this.state.currentSong === song;
@@ -175,40 +176,33 @@ class Album extends Component {
                         </div>
                     </div>
                 </article>
-                <table id="song-list">
-                    <colgroup>
-                        <col id="song-number-column" />
-                        <col id="song-title-column" />
-                        <col id="song-duration-column" />
-                    </colgroup>
-                    <tbody>
-                        {this.state.album.songs.map((song, index) => (
-                            <tr
-                                key={index}
-                                onClick={() => this.handleSongClick(song)}
-                                className={this.getSongClassName(song)}
-                            >
-                                <td className="song-number">
-                                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-                                        <i className="material-icons song-play">
-                                            play_circle_outline
-                                        </i>
-                                        <span className="song-number-showing">
-                                            {index + 1}
-                                        </span>
-                                        <i className="material-icons song-pause">
-                                            pause
-                                        </i>
-                                    </button>
-                                </td>
-                                <td className="song-title">{song.title}</td>
-                                <td className="song-duration">
-                                    {this.formatTime(song.duration)}
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <div id="song-list">
+                    {this.state.album.songs.map((song, index) => (
+                        <div
+                            key={index}
+                            onClick={() => this.handleSongClick(song)}
+                            className={this.getSongClassName(song)}
+                        >
+                            <div className="song-number">
+                                <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                                    <i className="material-icons song-play">
+                                        play_circle_outline
+                                    </i>
+                                    <span className="song-number-showing">
+                                        {index + 1}
+                                    </span>
+                                    <i className="material-icons song-pause">
+                                        pause
+                                    </i>
+                                </button>
+                            </div>
+                            <div className="song-title">{song.title}</div>
+                            <div className="song-duration">
+                                {this.formatTime(song.duration)}
+                            </div>
+                        </div>
+                    ))}
+                </div>
                 <PlayerBar
                     isPlaying={this.state.isPlaying}
                     currentSong={this.state.currentSong}

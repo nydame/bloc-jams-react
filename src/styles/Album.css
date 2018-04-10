@@ -1,4 +1,28 @@
+/* Album Info */
+#album-title,
+#release-info {
+    font-style: italic;
+}
+#album-info .artist {
+    margin: 0;
+}
 /* Song List*/
+#song-list {
+    border-bottom: 1px solid currentColor;
+    display: flex;
+    flex-direction: column;
+    margin: 2rem;
+    padding: 1rem 0;
+}
+.song-list-item {
+    display: flex;
+    justify-content: space-around;
+    margin: 0.25em 0;
+}
+.song-title {
+    overflow-x: hidden;
+    width: 50%;
+}
 .song-number button {
     position: relative;
 }
@@ -41,4 +65,10 @@
 .player-bar input[type="range"] {
     background: hsla(260,100%,63%,0.1);
     color: #fff;
+}
+
+@media screen and (min-width: 701px) {
+    .player-bar {
+        background: red;
+    }
 }
