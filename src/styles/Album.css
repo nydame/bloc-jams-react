@@ -67,8 +67,8 @@
     color: #fff;
 }
 
-@media screen and (min-width: 701px) {
+@media screen and (min-width: 801px) {
     .player-bar {
-        background: red;
+        /* background: red; TESTING*/
     }
 }
