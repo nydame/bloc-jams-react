@@ -9,6 +9,9 @@ class Library extends Component {
         super(props);
         this.state = { albums: albumData };
         this.handleButtonClick = this.handleButtonClick.bind(this);
+        this.axiosSpecialSauce = axios.create({
+            headers: { 'Access-Control-Allow-Origin': '*' },
+        });
     }
 
     handleButtonClick() {
@@ -41,27 +44,30 @@ class Library extends Component {
                     </Link>
                 ))}
                 <aside className="chooser">
-                    <Get url="https://accounts.spotify.com/authorize?client_id=ae45a76e6e264417a49a32043284912b&response_type=token&redirect_uri=https:%2F%2Fnydame-bloc-jams-v2.netlify.com%2Flibrary%2F&scope=user-read-private%20user-read-email&state=12345">
-                        {(error, response, isLoading, onReload) => {
-                            if (error) {
+                    <AxiosProvider instance={this.axiosSpecialSauce}>
+                        <Get url="https://accounts.spotify.com/authorize?client_id=ae45a76e6e264417a49a32043284912b&response_type=token&redirect_uri=https:%2F%2Fnydame-bloc-jams-v2.netlify.com%2Flibrary%2F&scope=user-read-private%20user-read-email&state=12345">
+                            {(error, response, isLoading, onReload) => {
+                                if (error) {
+                                    return (
+                                        <div>
+                                            Oops! Spotify could not be loaded
+                                            due to {error.message}
+                                        </div>
+                                    );
+                                } else if (isLoading) {
+                                    return <div>{'Loading...'}</div>;
+                                } else if (response !== null) {
+                                    return <div>{response.data.message} </div>;
+                                }
                                 return (
                                     <div>
-                                        Oops! Spotify could not be loaded due to{' '}
-                                        {error.message}
+                                        Sorry, request to Spotify could not be
+                                        made.
                                     </div>
                                 );
-                            } else if (isLoading) {
-                                return <div>{'Loading...'}</div>;
-                            } else if (response !== null) {
-                                return <div>{response.data.message} </div>;
-                            }
-                            return (
-                                <div>
-                                    Sorry, request to Spotify could not be made.
-                                </div>
-                            );
-                        }}
-                    </Get>
+                            }}
+                        </Get>
+                    </AxiosProvider>
                     <button
                         className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                         onClick={() => this.handleButtonClick()}
