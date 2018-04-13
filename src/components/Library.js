@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import albumData from './../data/albums';
 import './../styles/Library.css';
-import { AxiosProvider, Request, Head, Get, withAxios } from 'react-axios';
+import axios from 'axios';
+import { Head, Get } from 'react-axios';
 
 class Library extends Component {
     constructor(props) {
@@ -10,7 +11,12 @@ class Library extends Component {
         this.state = { albums: albumData };
         this.handleButtonClick = this.handleButtonClick.bind(this);
         this.axiosSpecialSauce = axios.create({
-            headers: { 'Access-Control-Allow-Origin': '*' },
+            baseURL: 'https://accounts.spotify.com/authorize',
+            crossDomain: true,
+            headers: {
+                'Content-Type': 'text/plain',
+            },
+            timeout: 1000,
         });
     }
 
@@ -44,30 +50,30 @@ class Library extends Component {
                     </Link>
                 ))}
                 <aside className="chooser">
-                    <AxiosProvider instance={this.axiosSpecialSauce}>
-                        <Get url="https://accounts.spotify.com/authorize?client_id=ae45a76e6e264417a49a32043284912b&response_type=token&redirect_uri=https:%2F%2Fnydame-bloc-jams-v2.netlify.com%2Flibrary%2F&scope=user-read-private%20user-read-email&state=12345">
-                            {(error, response, isLoading, onReload) => {
-                                if (error) {
-                                    return (
-                                        <div>
-                                            Oops! Spotify could not be loaded
-                                            due to {error.message}
-                                        </div>
-                                    );
-                                } else if (isLoading) {
-                                    return <div>{'Loading...'}</div>;
-                                } else if (response !== null) {
-                                    return <div>{response.data.message} </div>;
-                                }
+                    <Get
+                        url="?client_id=ae45a76e6e264417a49a32043284912b&response_type=token&redirect_uri=http:%2F%2Flocalhost:3000%2Flibrary&scope=user-read-private%20user-read-email&state=12345"
+                        instance={this.axiosSpecialSauce}
+                    >
+                        {(error, response, isLoading, onReload) => {
+                            if (error) {
                                 return (
                                     <div>
-                                        Sorry, request to Spotify could not be
-                                        made.
+                                        Oops! Spotify could not be loaded due to{' '}
+                                        {error.message}
                                     </div>
                                 );
-                            }}
-                        </Get>
-                    </AxiosProvider>
+                            } else if (isLoading) {
+                                return <div>{'Loading...'}</div>;
+                            } else if (response !== null) {
+                                return <div>{response.data.message} </div>;
+                            }
+                            return (
+                                <div>
+                                    Sorry, request to Spotify could not be made.
+                                </div>
+                            );
+                        }}
+                    </Get>
                     <button
                         className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                         onClick={() => this.handleButtonClick()}
