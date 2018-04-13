@@ -29,6 +29,14 @@ class Library extends Component {
                         <div>{album.songs.length} songs</div>
                     </Link>
                 ))}
+                <aside className="chooser">
+                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                        Nah, get my music!&nbsp;
+                        <i className="material-icons song-play">
+                            library_music
+                        </i>
+                    </button>
+                </aside>
             </section>
         );
     }
