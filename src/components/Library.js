@@ -41,7 +41,7 @@ class Library extends Component {
                     </Link>
                 ))}
                 <aside className="chooser">
-                    <Get url="https://accounts.spotify.com/authorize?client_id=ae45a76e6e264417a49a32043284912b&response_type=token&redirect_uri=https:%2F%2Fnydame-bloc-jams-v2.netlify.com%2Flibrary%2F&state=12345">
+                    <Get url="https://accounts.spotify.com/authorize?client_id=ae45a76e6e264417a49a32043284912b&response_type=token&redirect_uri=https:%2F%2Fnydame-bloc-jams-v2.netlify.com%2Flibrary%2F&scope=user-read-private%20user-read-email&state=12345">
                         {(error, response, isLoading, onReload) => {
                             if (error) {
                                 return (
@@ -57,7 +57,7 @@ class Library extends Component {
                             }
                             return (
                                 <div>
-                                    Default message before request is made.
+                                    Sorry, request to Spotify could not be made.
                                 </div>
                             );
                         }}
