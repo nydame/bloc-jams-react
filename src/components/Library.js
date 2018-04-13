@@ -7,7 +7,17 @@ class Library extends Component {
     constructor(props) {
         super(props);
         this.state = { albums: albumData };
+        this.handleButtonClick = this.handleButtonClick.bind(this);
     }
+
+    handleButtonClick() {
+        // alert("hello");
+        // update state if Promise resolves
+        let newAlbum = new Promise(function(resolve, reject) {
+            //
+        })();
+    }
+
     render() {
         return (
             <section className="library">
@@ -30,7 +40,10 @@ class Library extends Component {
                     </Link>
                 ))}
                 <aside className="chooser">
-                    <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+                    <button
+                        className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                        onClick={() => this.handleButtonClick()}
+                    >
                         Nah, get my music!&nbsp;
                         <i className="material-icons song-play">
                             library_music
