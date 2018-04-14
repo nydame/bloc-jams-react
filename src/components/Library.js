@@ -2,37 +2,27 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import albumData from './../data/albums';
 import './../styles/Library.css';
-import axios from 'axios';
-import { Head, Get } from 'react-axios';
 
 class Library extends Component {
     constructor(props) {
         super(props);
         this.state = { albums: albumData };
         this.handleButtonClick = this.handleButtonClick.bind(this);
-        this.axiosSpecialSauce = axios.create({
-            baseURL: 'https://accounts.spotify.com/authorize',
-            crossDomain: true,
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-            timeout: 1000,
-        });
     }
 
     handleButtonClick() {
         // alert("hello");
         // update state if Promise resolves
         let newAlbum = new Promise(function(resolve, reject) {
-            //
-        })();
+            // use token already received
+        });
     }
 
     render() {
         return (
             <section className="library">
                 {this.state.albums.map((album, index) => (
-                    <Link to={`album/${album.slug}`} key={index}>
+                    <Link to={`/album/${album.slug}`} key={index}>
                         <img
                             src={album.albumCover}
                             alt={
@@ -50,30 +40,6 @@ class Library extends Component {
                     </Link>
                 ))}
                 <aside className="chooser">
-                    <Get
-                        url="?client_id=ae45a76e6e264417a49a32043284912b&response_type=token&redirect_uri=http:%2F%2Flocalhost:3000%2Flibrary&scope=user-read-private%20user-read-email&state=12345"
-                        instance={this.axiosSpecialSauce}
-                    >
-                        {(error, response, isLoading, onReload) => {
-                            if (error) {
-                                return (
-                                    <div>
-                                        Oops! Spotify could not be loaded due to{' '}
-                                        {error.message}
-                                    </div>
-                                );
-                            } else if (isLoading) {
-                                return <div>{'Loading...'}</div>;
-                            } else if (response !== null) {
-                                return <div>{response.data.message} </div>;
-                            }
-                            return (
-                                <div>
-                                    Sorry, request to Spotify could not be made.
-                                </div>
-                            );
-                        }}
-                    </Get>
                     <button
                         className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                         onClick={() => this.handleButtonClick()}

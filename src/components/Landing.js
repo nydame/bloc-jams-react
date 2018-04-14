@@ -1,5 +1,22 @@
 import React from 'react';
 
+const randomLargeNumber = Date.now() * Math.floor(Math.random() * 1000 + 1);
+const scope = 'user-read-private user-read-email';
+const clientId = 'ae45a76e6e264417a49a32043284912b';
+const redirectUrl =
+    window.location.protocol + '//' + window.location.host + '/library';
+
+const spotifyUrl =
+    encodeURI('https://accounts.spotify.com/authorize') +
+    encodeURIComponent('?response_type=token') +
+    encodeURIComponent('&scope=' + scope) +
+    encodeURIComponent('&client_id=' + clientId) +
+    encodeURIComponent('&redirect_uri=' + redirectUrl) +
+    '&state=' +
+    randomLargeNumber.toString(36);
+
+window.localStorage.setItem('sessionKey', spotifyUrl.split('=').pop());
+
 const Landing = () => (
     <section className="landing">
         <h1 className="hero-title">Turn the music up!</h1>
@@ -9,6 +26,10 @@ const Landing = () => (
                 <p className="point-description">
                     The world is full of music. Why should you have to listen to
                     music chosen by someone else?
+                </p>
+                <p>
+                    <a href={spotifyUrl}>Log into Spotify</a> for a better
+                    experience.
                 </p>
             </div>
             <div className="point">
