@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
+    "ajv": "^6.5.4",
+    "axios": "^0.15.3",
+    "firebase": "^5.5.3",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-axios": "^2.0.0",
