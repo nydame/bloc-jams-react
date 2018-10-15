@@ -13,7 +13,7 @@ class Library extends Component {
 
   componentDidMount() {
     const cm = new CookieMaster();
-    if (cm.checkSetCookie(this.props.cookieKey)) {
+    if (cm.checkStoreKey(this.props.cookieKey)) {
       // tell <App /> to record page view to state
       this.props.recordUniquePageView(this.props.cookieKey);
     }

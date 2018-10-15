@@ -6,13 +6,21 @@ class CookieMaster {
     // }
   }
 
-  checkSetCookie(key) {
-    const allKeys = this.getCookieKeys();
-    if (allKeys.indexOf(key) === -1) {
-      this.setACookie(key);
-      return true;
+  checkStoreKey(key) {
+    if (this.storageAvailable("sessionStorage")) {
+      if (sessionStorage.getItem(key) === null) {
+        sessionStorage.setItem(key, "1");
+        return true;
+      }
+      return false;
+    } else {
+      const allKeys = this.getCookieKeys();
+      if (allKeys.indexOf(key) === -1) {
+        this.setACookie(key);
+        return true;
+      }
+      return false;
     }
-    return false;
   }
 
   setACookie(cookieKey) {
@@ -20,10 +28,21 @@ class CookieMaster {
   }
 
   getCookieKeys() {
-    return document.cookie.split(';').map( item => item.split('=')[0].trim() );
+    return document.cookie.split(";").map(item => item.split("=")[0].trim());
   }
 
+  storageAvailable(type) {
+    try {
+      var store = window.type;
+    } catch (e) {
+    } finally {
+      if (store === undefined) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
 }
-
 
 export default CookieMaster;
