@@ -62,7 +62,7 @@ class App extends Component {
     const fbRef = database.ref("stats");
 
     if (statsObj.albumSelections === undefined) {
-      statsObj["albumSelections"] = {}; // this works!
+      statsObj["albumSelections"] = {};
     }
 
     if (statsObj.albumSelections[keyString] === undefined) {
@@ -71,11 +71,25 @@ class App extends Component {
       statsObj.albumSelections[keyString] += 1;
     }
 
-    fbRef.update({ albumSelections: statsObj.albumSelections }); // WRONG!!! Start here...
+    fbRef.update({ albumSelections: statsObj.albumSelections });
   }
 
   recordSongEnd(song) {
-    console.log(song);
+    console.log(`User just finished ${song.title}.`);
+    const statsObj = Object.assign({}, this.state.stats);
+    const fbRef = database.ref("stats");
+
+    if (statsObj.songPlays === undefined) {
+      statsObj["songPlays"] = {};
+    }
+
+    if (statsObj.songPlays[song.title] === undefined) {
+      statsObj.songPlays[song.title] = 1;
+    } else {
+      statsObj.songPlays[song.title] += 1;
+    }
+
+    fbRef.update({ songPlays: statsObj.songPlays });
   }
 
   render() {

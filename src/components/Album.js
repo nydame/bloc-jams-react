@@ -146,6 +146,7 @@ class Album extends Component {
       "volumechange",
       this.handleVolumeUpdate
     );
+    this.audioElement.removeEventListener("ended", this.handleSongEnd);
     this.audioElement = null;
   }
   // END UTILIY FNS & EVENT HANDLERS
