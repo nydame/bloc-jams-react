@@ -15,8 +15,8 @@ class App extends Component {
       stats: {
         homeViews: 0,
         libraryViews: 0,
-        albumViews: [],
-        songPlays: []
+        albumSelections: {}, // NB This is ignored and so is the next line
+        songPlays: {}
       },
       userIsAdmin: false
     };
@@ -25,6 +25,9 @@ class App extends Component {
     //   { path: "/library", component: Library },
     //   { path: "/album/:slug", component: Album }
     // ];
+    this.recordUniquePageView = this.recordUniquePageView.bind(this);
+    this.recordAlbumSelection = this.recordAlbumSelection.bind(this);
+    this.recordSongEnd = this.recordSongEnd.bind(this);
   }
 
   componentDidMount() {
@@ -40,14 +43,12 @@ class App extends Component {
       case "blocJamsHome":
         fbRef.child("homeViews").once("value", data => {
           count = data.node_.value_;
-          console.log("count is now " + count);
           fbRef.update({ homeViews: ++count });
         });
         break;
       case "blocJamsLib":
         fbRef.child("libraryViews").once("value", data => {
           count = data.node_.value_;
-          console.log("count is now " + count);
           fbRef.update({ libraryViews: ++count });
         });
         break;
@@ -55,9 +56,33 @@ class App extends Component {
     }
   }
 
+  recordAlbumSelection(albumTitle, albumArtist) {
+    const keyString = `${albumTitle} by ${albumArtist}`;
+    const statsObj = Object.assign({}, this.state.stats);
+    const fbRef = database.ref("stats");
+
+    if (statsObj.albumSelections === undefined) {
+      statsObj["albumSelections"] = {}; // this works!
+    }
+
+    if (statsObj.albumSelections[keyString] === undefined) {
+      statsObj.albumSelections[keyString] = 1;
+    } else {
+      statsObj.albumSelections[keyString] += 1;
+    }
+
+    fbRef.update({ albumSelections: statsObj.albumSelections }); // WRONG!!! Start here...
+  }
+
+  recordSongEnd(song) {
+    console.log(song);
+  }
+
   render() {
-    const recordUniquePageView = this.recordUniquePageView;
-    const stats = this.state.stats;
+    const recordUniquePageView = this.recordUniquePageView,
+      recordAlbumSelection = this.recordAlbumSelection,
+      recordSongEnd = this.recordSongEnd,
+      stats = this.state.stats;
     return (
       <div className="App">
         <header>
@@ -99,6 +124,7 @@ class App extends Component {
               <Library
                 {...props}
                 recordUniquePageView={recordUniquePageView}
+                recordAlbumSelection={recordAlbumSelection}
                 cookieKey="blocJamsLib"
               />
             )}
@@ -106,7 +132,10 @@ class App extends Component {
           {
             // ALBUM PAGES
           }
-          <Route path="/album/:slug" component={Album} />
+          <Route
+            path="/album/:slug"
+            render={props => <Album {...props} recordSongEnd={recordSongEnd} />}
+          />
           {
             // DASHBOARD
           }

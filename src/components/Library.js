@@ -9,6 +9,7 @@ class Library extends Component {
     super(props);
     this.state = { albums: albumData };
     this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handleLinkClick = this.handleLinkClick.bind(this);
   }
 
   componentDidMount() {
@@ -27,21 +28,29 @@ class Library extends Component {
     });
   }
 
+  handleLinkClick(ev) {
+    // console.log(ev.target);
+    this.props.recordAlbumSelection(
+      ev.target.parentElement.getAttribute("data-albumtitle"),
+      ev.target.parentElement.getAttribute("data-albumartist")
+    );
+  }
+
   render() {
+    const handleLinkClick = this.handleLinkClick;
     return (
       <section className="library">
         {this.state.albums.map((album, index) => (
-          <Link to={`/album/${album.slug}`} key={index}>
+          <Link
+            to={`/album/${album.slug}`}
+            key={index}
+            data-albumtitle={album.title}
+            data-albumartist={album.artist}
+            onClick={ev => handleLinkClick(ev)}
+          >
             <img
               src={album.albumCover}
-              alt={
-                album.title +
-                " by " +
-                album.artist +
-                " (" +
-                album.releaseInfo +
-                ")"
-              }
+              alt={`${album.title} by ${album.artist} (${album.releaseInfo})`}
             />
             <div>{album.title}</div>
             <div>{album.artist}</div>
