@@ -1,0 +1,31 @@
+/* Dashboard styles */
+.dashboard-container {
+  background: hsl(0, 0%, 100%);
+  color: hsl(126, 96%, 61%);
+  display: flex;
+  flex-wrap: wrap;
+}
+.dashboard-container .title {
+  min-width: 100%;
+}
+.dashboard--menu {
+  background-color: hsl(0, 100%, 0%);
+  flex-shrink: 1;
+  padding: 0 2.5em;
+}
+.dashboard--menu .summary {
+  opacity: 0.25;
+}
+.dashboard--menu .summary p {
+  display: none;
+}
+.dashboard--menu .active {
+  opacity: 1;
+}
+.dashboard--menu .active p {
+  display: block;
+}
+svg .label {
+  font-weight: bold;
+  transform: translateX(-100px);
+}
