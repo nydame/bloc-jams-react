@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { BarChart } from "react-d3-components";
 import "./../styles/Dashboard.css";
-import "./../helpers/dashboardNavigation";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -9,6 +8,35 @@ class Dashboard extends Component {
     this.viewData = [{ values: [{ x: "Home", y: 0 }, { x: "Library", y: 0 }] }];
     this.albumData = [{ values: [] }];
     this.songData = [{ values: [] }];
+  }
+
+  componentDidMount() {
+    // handle navigation
+    Object.values(document.getElementsByClassName("menu--item")).forEach(
+      item => {
+        item.addEventListener("click", ev => {
+          // remove class "active" from all summary divs
+          Object.values(document.getElementsByClassName("menu--item")).forEach(
+            item => {
+              item.parentElement.classList.remove("active");
+            }
+          );
+          // remove class "active" from all chart divs
+          Object.values(document.getElementsByClassName("chart")).forEach(
+            item => {
+              item.classList.remove("active");
+            }
+          );
+          // add class "active" to targeted summary div
+          item.parentElement.classList.add("active");
+          // add class "active" to corresponding chart div
+          let chart;
+          if ((chart = document.querySelector(".chart." + item.dataset.type))) {
+            chart.classList.add("active");
+          }
+        });
+      }
+    );
   }
 
   render() {

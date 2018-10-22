@@ -7,7 +7,6 @@ document.addEventListener("readystatechange", () => {
           // remove class "active" from all summary divs
           Object.values(document.getElementsByClassName("menu--item")).forEach(
             item => {
-              console.log(item.dataset.type);
               item.parentElement.classList.remove("active");
             }
           );
