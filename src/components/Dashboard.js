@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BarChart } from "react-d3-components";
 import "./../styles/Dashboard.css";
+import "./../helpers/dashboardNavigation";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -41,12 +42,16 @@ class Dashboard extends Component {
         <h1 className="title">Dashboard</h1>
         <section className="dashboard--menu">
           <div className="summary active">
-            <h2 className="menu--item">Page Views</h2>
+            <h2 className="menu--item" data-type="views">
+              Page Views
+            </h2>
             <p>Home Page: {this.props.stats.homeViews} unique visits</p>
             <p>Library Page: {this.props.stats.libraryViews} unique visits</p>
           </div>
           <div className="summary">
-            <h2 className="menu--item">Album Popularity</h2>
+            <h2 className="menu--item" data-type="albums">
+              Album Popularity
+            </h2>
             {Object.entries(this.props.stats.albumSelections).map(
               (entry, index) => (
                 <p key={index}>
@@ -56,7 +61,9 @@ class Dashboard extends Component {
             )}
           </div>
           <div className="summary">
-            <h2 className="menu--item">Song Popularity</h2>
+            <h2 className="menu--item" data-type="songs">
+              Song Popularity
+            </h2>
             {Object.entries(this.props.stats.songPlays).map((entry, index) => (
               <p key={index}>
                 {entry[0]}: played to completion {entry[1]} times
@@ -65,7 +72,7 @@ class Dashboard extends Component {
           </div>
         </section>
         <section className="dashboard--data">
-          <div className="chart view active">
+          <div className="chart views active">
             <BarChart
               data={this.viewData}
               width={400}
@@ -74,7 +81,7 @@ class Dashboard extends Component {
               xAxis={{ label: "Unique Page Views" }}
             />
           </div>
-          <div className="chart album">
+          <div className="chart albums">
             <BarChart
               data={this.albumData}
               width={400}
@@ -83,7 +90,7 @@ class Dashboard extends Component {
               xAxis={{ label: "Album Selections" }}
             />
           </div>
-          <div className="chart song">
+          <div className="chart songs">
             <BarChart
               data={this.songData}
               width={400}

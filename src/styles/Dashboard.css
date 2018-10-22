@@ -14,16 +14,34 @@
   padding: 0 2.5em;
 }
 .dashboard--menu .summary {
+  cursor: pointer;
   opacity: 0.25;
+}
+.dashboard--menu .summary:hover {
+  opacity: 1;
 }
 .dashboard--menu .summary p {
   display: none;
 }
 .dashboard--menu .active {
+  cursor: default;
   opacity: 1;
 }
 .dashboard--menu .active p {
   display: block;
+}
+.dashboard--data {
+  min-height: 500px;
+  position: relative;
+}
+.dashboard--data .chart {
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+}
+.dashboard--data .chart.active {
+  opacity: 1;
 }
 svg .label {
   font-weight: bold;
