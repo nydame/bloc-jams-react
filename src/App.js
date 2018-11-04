@@ -18,7 +18,7 @@ class App extends Component {
         albumSelections: {}, // NB This is ignored and so is the next line
         songPlays: {}
       },
-      userIsAdmin: false
+      adminIsLoggedIn: false
     };
     // this.routes = [
     //   { path: "/", component: Landing },
