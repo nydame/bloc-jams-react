@@ -5,8 +5,9 @@ import Library from "./components/Library";
 import Dashboard from "./components/Dashboard";
 import Album from "./components/Album";
 import "./App.css";
-import { database } from "./data/firebase";
+import { database, auth } from "./data/firebase";
 import cookieMaster from "./helpers/cookieMaster";
+import adminList from "./helpers/adminList";
 
 class App extends Component {
   constructor(props) {
@@ -31,8 +32,18 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // monitor user interactions recorded by DB
     database.ref("stats").on("value", snapshot => {
       this.setState({ stats: snapshot.val() });
+    });
+    // monitor user login & logout events recorded by DB
+    auth.onAuthStateChanged(function(user) {
+      const currentUser = auth.currentUser;
+      if (currentUser && adminList.indexOf(currentUser.email) >= 0) {
+        this.setState({
+          adminIsLoggedIn: true
+        });
+      }
     });
   }
 
