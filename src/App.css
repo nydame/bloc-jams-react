@@ -32,9 +32,15 @@
 }
 
 .hidden {
-  visibility: hidden;
+  display: none;
 }
-
 .visible {
   visibility: inherit;
+}
+.invisible {
+  opacity: 0;
+}
+.error {
+  background-color: red;
+  transition: all 2s; /* not working! */
 }

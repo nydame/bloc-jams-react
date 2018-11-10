@@ -1,2 +1,2 @@
-const adminList = ["jamzadmin@bloc.io", "fmbetancourt@gmail.com"];
+const adminList = ["abc@def.com"];
 export default adminList;

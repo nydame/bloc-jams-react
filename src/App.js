@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Route, NavLink } from "react-router-dom";
+import { Route, NavLink, Redirect } from "react-router-dom";
 import Landing from "./components/Landing";
 import Library from "./components/Library";
 import Dashboard from "./components/Dashboard";
 import Album from "./components/Album";
+import Login from "./components/Login";
 import "./App.css";
 import { database, auth } from "./data/firebase";
 import cookieMaster from "./helpers/cookieMaster";
@@ -37,12 +38,13 @@ class App extends Component {
       this.setState({ stats: snapshot.val() });
     });
     // monitor user login & logout events recorded by DB
-    auth.onAuthStateChanged(function(user) {
-      const currentUser = auth.currentUser;
+    auth.onAuthStateChanged(currentUser => {
       if (currentUser && adminList.indexOf(currentUser.email) >= 0) {
         this.setState({
           adminIsLoggedIn: true
         });
+      } else {
+        this.setState({ adminIsLoggedIn: false });
       }
     });
   }
@@ -107,7 +109,8 @@ class App extends Component {
     const recordUniquePageView = this.recordUniquePageView,
       recordAlbumSelection = this.recordAlbumSelection,
       recordSongEnd = this.recordSongEnd,
-      stats = this.state.stats;
+      stats = this.state.stats,
+      adminIsLoggedIn = this.state.adminIsLoggedIn;
     return (
       <div className="App">
         <header>
@@ -166,7 +169,22 @@ class App extends Component {
           }
           <Route
             path="/dashboard"
-            render={props => <Dashboard {...props} stats={stats} />}
+            render={props =>
+              adminIsLoggedIn ? (
+                <Dashboard {...props} stats={stats} />
+              ) : (
+                <Redirect to="/login" />
+              )
+            }
+          />
+          {
+            // LOGIN
+          }
+          <Route
+            path="/login"
+            render={props =>
+              adminIsLoggedIn ? <Redirect to="/dashboard" /> : <Login />
+            }
           />
         </main>
       </div>

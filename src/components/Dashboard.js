@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { BarChart } from "react-d3-components";
 import "./../styles/Dashboard.css";
+import Logout from "./Logout";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -67,7 +68,9 @@ class Dashboard extends Component {
     // });
     return (
       <div className="dashboard-container">
-        <h1 className="title">Dashboard</h1>
+        <h1 className="title">
+          Dashboard<Logout />
+        </h1>
         <section className="dashboard--menu">
           <div className="summary active">
             <h2 className="menu--item" data-type="views">
