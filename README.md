@@ -12,10 +12,10 @@ Bloc Jams React is a music player with a dashboard for administrators that I bui
  - Password-protected [Dashboard](https://nydame-bloc-jams-v2.netlify.com/dashboard) showing analytics for selectd user interactions. (User is redirected to a login page unless already logged in as an administrator.)
   
 ## Features
- - Routing implemented with React Router
- - Music player affordances implemented through HTML Audio element
+ - Routing implemented with [React Router](https://www.npmjs.com/package/react-router-dom)
+ - Music player affordances implemented through [HTML Audio](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio) element
  - Authorization (for Dashboard) implemented with React Router
- - User authentication (for Dashboard) carried out by Firebase
+ - User authentication (for Dashboard) carried out by [Firebase](https://firebase.google.com)
  - Data on user interaction stored on Firebase
- - Dynamic charts implemented with D3.js
+ - Dynamic charts implemented with [D3.js](https://d3js.org)
 
